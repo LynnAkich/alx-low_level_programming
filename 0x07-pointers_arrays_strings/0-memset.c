@@ -4,14 +4,14 @@
  * with the constant byte b
  * @s: starting address of memory to be filled
  * @b: value to copy
- * @n: number of times to be opy b
+ * @n: number of times to be copy b
  * Return: pointer to the memory area s
  */
 char *_memset(char *s, char b, unsigned int n)
 {
-	int a;
+	int a = 0;
 
-	for (; a > 0; a++)
+	for (; n > 0; a++)
 	{
 		s[a] = b;
 		n--;
