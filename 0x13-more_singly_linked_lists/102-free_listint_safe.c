@@ -1,85 +1,38 @@
 #include "lists.h"
-#include <stdio.h>
-
 /**
- * looped_listint_len - Counts number of unique nodes
- * ina looped linked list
- * @head: pointer to head of list to check
- * Return: number of unique nodes in list,
- * otherwise 0 if not looped
+ * free_listint_safe - frees a listint_t list
+ * @h: pointer to first node in linked list
+ * Return: size of the list that was free’d
  */
-size_t looped_listint_len(const listint_t *head)
+size_t free_listint_safe(listint_t **h)
 {
-	const listint_t *tortoise, *hare;
-	size_t nodes = 1;
+	size_t len = 0;
+	int diff;
+	listint_t *temp;
 
-	if (head == NULL || head->next == NULL)
+	if (!h || !*h)
 		return (0);
 
-	tortoise = head->next;
-	hare = (head->next)->next;
-
-	while (hare)
+	while (*h)
 	{
-		if (tortoise == hare)
+		diff = *h - (*h)->next;
+		if (diff > 0)
 		{
-			tortoise = head;
-			while (tortoise != hare)
-			{
-				nodes++;
-				tortoise = tortoise->next;
-				hare = hare->next;
-			}
-
-			tortoise = tortoise->next;
-			while (tortoise != hare)
-			{
-				nodes++;
-				tortoise = tortoise->next;
-			}
-
-			return (nodes);
-
-			return (nodes);
+			temp = (*h)->next;
+			free(*h);
+			*h = temp;
+			len++;
 		}
-
-		tortoise = tortoise->next;
-		hare = (hare->next)->next;
-	}
-
-	return (0);
-}
-
-/**
- * print_listint_safe - prints a listint_t linked list
- * @head: pointer to head of list
- * Return: the number of nodes in the list
- */
-size_t print_listint_safe(const listint_t *head)
-{
-	size_t nodes, index = 0;
-
-	nodes = looped_listint_len(head);
-
-	if (nodes == 0)
-	{
-		for (; head != NULL; nodes++)
+		else
 		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
+			free(*h);
+			*h = NULL;
+			len++;
+			break;
 		}
 	}
 
-	else
-	{
-		for (index = 0; index < nodes; index++)
-		{
-			printf("[%p] %d\n", (void *)head, head->n);
-			head = head->next;
-		}
+	*h = NULL;
 
-		printf("-> [%p] %d\n", (void *)head, head->n);
-	}
-
-	return (nodes);
+	return (len);
 }
