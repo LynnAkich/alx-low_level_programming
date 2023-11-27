@@ -6,21 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void check_elf(unsigned char *e_ident);
-void print_magic(unsigned char *e_ident);
-void print_class(unsigned char *e_ident);
-void print_data(unsigned char *e_ident);
-void print_version(unsigned char *e_ident);
-void print_abi(unsigned char *e_ident);
-void print_osabi(unsigned char *e_ident);
-void print_type(unsigned int e_type, unsigned char *e_ident);
-void print_entry(unsigned long int e_entry, unsigned char *e_ident);
-void close_elf(int elf);
-
 /**
  * check_elf - Checks if a file is an ELf file
  * @e_ident: Pointer to array containing ELF numbers
- * Description: If file is not ELF, exit code 98
+ * Description: If file is not ELF - exit code 98
  */
 void check_elf(unsigned char *e_ident)
 {
@@ -48,7 +37,7 @@ void print_magic(unsigned char *e_ident)
 {
 	int index;
 
-	printf(" Magic: ");
+	printf("  Magic:  ");
 
 	for (index = 0; index < EI_NIDENT; index++)
 	{
@@ -67,7 +56,7 @@ void print_magic(unsigned char *e_ident)
  */
 void print_class(unsigned char *e_ident)
 {
-	printf(" Class: ");
+	printf("  Class:                                     ");
 
 	switch (e_ident[EI_CLASS])
 	{
@@ -91,7 +80,7 @@ void print_class(unsigned char *e_ident)
  */
 void print_data(unsigned char *e_ident)
 {
-	printf(" Data: ");
+	printf("  Data:                                       ");
 
 	switch (e_ident[EI_DATA])
 	{
