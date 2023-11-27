@@ -34,7 +34,7 @@ void check_elf(unsigned char *e_ident)
 				e_ident[index] != 'F')
 		{
 			dprintf(STDERR_FILENO, "Error: Not an ELF file\n");
-			exit (98);
+			exit(98);
 		}
 	}
 }
@@ -146,22 +146,22 @@ void print_osabi(unsigned char *e_ident)
 				break;
 		case ELFOSABI_NETBSD:
 			printf("UNIX - NetBSD\n");
-                                break;
+			break;
 		case ELFOSABI_LINUX:
 			printf("UNIX - Linux\n");
-                                break;
+			break;
 		case ELFOSABI_SOLARIS:
 			printf("UNIX - Solaris\n");
-                                break;
+			break;
 		case ELFOSABI_IRIX:
 			printf("UNIX - IRIX\n");
-                                break;
+			break;
 		case ELFOSABI_FREEBSD:
 			printf("UNIX - FreeBSD\n");
-                                break;
+			break;
 		case ELFOSABI_TRU64:
 			printf("UNIX - TRU64\n");
-                                break;
+			break;
 		case ELFOSABI_ARM:
 			printf("ARM\n");
 			break;
@@ -190,7 +190,7 @@ void print_abi(unsigned char *e_ident)
 void print_type(unsigned int e_type, unsigned char *e_ident)
 {
 	if (e_ident[EI_DATA] == ELFDATA2MSB)
-		e_type >>=8;
+		e_type >>= 8;
 
 	printf(" Type: ");
 
